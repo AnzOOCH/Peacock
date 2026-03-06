@@ -1,0 +1,29 @@
+name: Manual Server Build
+on: [workflow_dispatch]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.9.0' # 严格遵守 README 要求
+
+      - name: Enable Corepack
+        run: corepack enable # 遵守 README 安装步骤
+
+      - name: Install Dependencies
+        run: yarn install --immutable
+
+      - name: Build Server
+        # 尝试通用编译命令，如果 package.json 里定义了 build 就会成功
+        run: yarn build 
+
+      - name: Upload Unlocked Files
+        uses: actions/upload-artifact@v4
+        with:
+          name: peacock-final-dist
+          path: dist/
