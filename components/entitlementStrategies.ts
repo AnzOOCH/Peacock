@@ -86,7 +86,7 @@ export class EpicH1Strategy extends EntitlementStrategy {
  */
 export class SteamScpcStrategy extends EntitlementStrategy {
     override get() {
-        return ALL_ENTITLEMENTS
+        return SCPC_ENTITLEMENTS
     }
 }
 
