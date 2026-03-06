@@ -10,20 +10,23 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '22.9.0' # 严格遵守 README 要求
+          node-version: '22.9.0' 
 
       - name: Enable Corepack
-        run: corepack enable # 遵守 README 安装步骤
+        run: corepack enable 
 
       - name: Install Dependencies
-        run: yarn install --immutable
+        run: yarn install
 
       - name: Build Server
-        # 尝试通用编译命令，如果 package.json 里定义了 build 就会成功
         run: yarn build 
 
-      - name: Upload Unlocked Files
+      - name: Upload Unlocked Server
         uses: actions/upload-artifact@v4
         with:
-          name: peacock-final-dist
-          path: dist/
+          name: peacock-unlocked-files
+          path: |
+            chunk0.js
+            chunk0.js.map
+            build/
+            resources/
