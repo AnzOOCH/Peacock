@@ -22,6 +22,35 @@ import type { NamespaceEntitlementEpic, RequestWithJwt } from "./types/types"
 import { getUserData } from "./databaseHandler"
 import { log, LogLevel } from "./loggingInterop"
 
+export const H1_EPIC_ENTITLEMENTS = [
+    "0a73eaedcac84bd28b567dbec764c5cb", // Hitman 1 Standard Edition 
+    "81aecb49a60b47478e61e1cbd68d63c5", // Hitman 1 GOTY upgrade
+]
+
+export const H1_STEAM_ENTITLEMENTS = [
+    "737780", // HITMAN - GOTY Suit Pack (HITMAN - GOTY Outfit Bundle)
+    "725353", // HITMAN - Bonus Campaign Patient Zero
+    "725352", // HITMAN - GOTY Cowboy Suit
+    "725351", // HITMAN - GOTY Raven Suit
+    "725350", // HITMAN - GOTY Clown Suit
+    "664270", // HITMAN - Japanese V/O Pack
+    "588780", // HITMAN - Digital Bonus Content
+    "588660", // HITMAN - Blood Money Requiem Pack
+    "505201", // HITMAN - Intro Pack
+    "505200", // HITMAN - FULL EXPERIENCE Upgrade
+    "505180", // HITMAN - FULL EXPERIENCE
+    "440972", // HITMAN - White Rubber Duck Explosive
+    "440971", // HITMAN - Silenced ICA-19 Chrome Pistol
+    "440970", // HITMAN - Requiem Legacy Suit
+    "440962", // HITMAN: Episode 6 - Hokkaido
+    "440961", // HITMAN: Episode 5 - Colorado
+    "440960", // HITMAN: Episode 4 - Bangkok
+    "440940", // HITMAN: Bonus Episode
+    "440930", // HITMAN: Episode 3 - Marrakesh
+    "439890", // HITMAN: Episode 2 - Sapienza
+    "439870", // HITMAN: Episode 1 - Paris
+]
+
 export const H3_EPIC_ENTITLEMENTS = [
     // DUBAI:
     "06d4d61bbb774ca99c1661bee04fbde0",
@@ -99,13 +128,45 @@ export const H3_EPIC_ENTITLEMENTS = [
     "b135c766d25948c39d7dd316dbc4db53",
 ]
 
+export const H3_STEAM_ENTITLEMENTS = [
+    "3254350", // HITMAN 3 - The Splitter Pack
+    "3110360", // HITMAN 3 - The Drop Pack
+    "2973650", // HITMAN 3 - The Disruptor Pack
+    "2828470", // HITMAN 3 - The Undying Pack
+    "2475260", // HITMAN 3 - Sarajevo Six Campaign Pack
+    "2184791", // HITMAN 3 - Makeshift Pack
+    "2184790", // HITMAN 3 - Street Art Pack
+    "1843460", // HITMAN 3 Access Pass: HITMAN 1 GOTY Edition
+    "1829605", // HITMAN 3 - Dubai
+    "1829604", // HITMAN 3 - Dartmoor
+    "1829603", // HITMAN 3 - Berlin
+    "1829602", // HITMAN 3 - Chongqing
+    "1829601", // HITMAN 3 - Mendoza
+    "1829600", // HITMAN 3 - Carpathian Mountains
+    "1829596", // HITMAN 3 - Trinity Pack
+    "1829595", // HITMAN 3 Access Pass: HITMAN 1 GOTY Upgrade
+    "1829594", // HITMAN 3 - VR Access
+    "1829593", // HITMAN 3 Access Pass: HITMAN 1 Complete First Season
+    "1829592", // HITMAN 3 Access Pass: HITMAN 2 Standard
+    "1829591", // HITMAN 3 - Deluxe Pack
+    "1829590", // HITMAN 3 Access Pass: HITMAN 2 Expansion
+    "1829587", // HITMAN 3 - Seven Deadly Sins Collection
+    "1829586", // HITMAN 3 - Seven Deadly Sins Act 7: Wrath
+    "1829585", // HITMAN 3 - Seven Deadly Sins Act 6: Envy
+    "1829584", // HITMAN 3 - Seven Deadly Sins Act 5: Gluttony
+    "1829583", // HITMAN 3 - Seven Deadly Sins Act 4: Lust
+    "1829582", // HITMAN 3 - Seven Deadly Sins Act 3: Sloth
+    "1829581", // HITMAN 3 - Seven Deadly Sins Act 2: Pride
+    "1829580", // HITMAN 3 - Seven Deadly Sins Act 1: Greed
+]
+
 export const H2_STEAM_ENTITLEMENTS = [
     "863550", // Hitman 2
     "950540", // Hitman - Legacy: Paris
     "950550", // Hitman - Legacy: Sapienza
     "950551", // Hitman - Legacy: Marrakesh
     "950552", // Hitman - Legacy: Bonus Missions
-    "950553", // Hitman - Legacy: Bankok
+    "950553", // Hitman - Legacy: Bangkok
     "950554", // Hitman - Legacy: Colorado
     "950555", // Hitman - Legacy: Hokkaido
     "950556", // Hitman 2 - Hawke's Bay
@@ -139,6 +200,8 @@ export const H2_STEAM_ENTITLEMENTS = [
     "960832", // Hitman 2 - GOTY Upgrade Legacy Pack
     "972340", // Hitman 2 - Gold Edition
     "977941", // Hitman 2 - Early Access
+    "1131050", // HITMAN 2 - Silver to Gold Upgrade
+    "1083220", // HITMAN 2 - Miami Bundle
 ]
 
 export const STEAM_NAMESPACE_2016 = "236870"
@@ -147,6 +210,8 @@ export const STEAM_NAMESPACE_SCPC = "783781"
 export const STEAM_NAMESPACE_2018 = "863550"
 export const EPIC_NAMESPACE_2021 = "ed55aa5edc5941de92fd7f64de415793"
 export const STEAM_NAMESPACE_2021 = "1659040"
+
+export const ALL_ENTITLEMENTS = [STEAM_NAMESPACE_2016, EPIC_NAMESPACE_2016, STEAM_NAMESPACE_SCPC, STEAM_NAMESPACE_2018, EPIC_NAMESPACE_2021, STEAM_NAMESPACE_2021].concat(H1_EPIC_ENTITLEMENTS).concat(H1_STEAM_ENTITLEMENTS).concat(H2_STEAM_ENTITLEMENTS).concat(H3_EPIC_ENTITLEMENTS).concat(H3_STEAM_ENTITLEMENTS)
 
 export const SCPC_ENTITLEMENTS = [STEAM_NAMESPACE_2016, "783781"]
 
