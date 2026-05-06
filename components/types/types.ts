@@ -128,12 +128,12 @@ export interface RequestWithJwt<
     RequestBody = any,
     Params = core.ParamsDictionary,
 > extends Request<
-        Params,
-        // eslint-disable-next-line
-        any,
-        RequestBody,
-        core.Query & Query
-    > {
+    Params,
+    // eslint-disable-next-line
+    any,
+    RequestBody,
+    core.Query & Query
+> {
     /**
      * The user's JSON Web Token (JWT) data.
      */
@@ -482,7 +482,10 @@ export type UserProfile = {
         steam?: string
         gog?: string
         xbox?: string
+        /** @deprecated */
         stadia?: string
+        apple?: string
+        nintendo?: string
     }
     Extensions: {
         /**
@@ -574,6 +577,7 @@ export type UserProfile = {
     DevId: string | null
     SteamId: string | null
     EpicId: string | null
+    AppleId?: string | null
     NintendoId: string | null
     XboxLiveId: string | null
     PSNAccountId: string | null

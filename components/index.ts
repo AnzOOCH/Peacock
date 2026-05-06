@@ -125,7 +125,16 @@ const app = express()
 const baseDir = __dirname
 
 app.use(function badPathRewritingMiddleware(req, _, next) {
-    req.url = req.url.replaceAll("//", "/")
+    // rewrite every `//` to `/` that occurs before the query string
+    const qIdx = req.url.indexOf("?")
+
+    if (qIdx === -1) {
+        req.url = req.url.replaceAll("//", "/")
+    } else {
+        req.url =
+            req.url.slice(0, qIdx).replaceAll("//", "/") + req.url.slice(qIdx)
+    }
+
     next()
 })
 app.use(loggingMiddleware)
@@ -211,31 +220,39 @@ app.get(
                 "pc-prod_6"
         }
 
-        if (req.query.issuer === STEAM_NAMESPACE_2021) {
-            config.Versions[0].SERVER_VER.GlobalAuthentication.RequestedAudience =
-                "steam-prod_8"
+        switch (req.query.issuer) {
+            case STEAM_NAMESPACE_2021:
+                config.Versions[0].SERVER_VER.GlobalAuthentication.RequestedAudience =
+                    "steam-prod_8"
+                break
+            case "https://appleid.apple.com":
+                config.Versions[0].SERVER_VER.GlobalAuthentication.RequestedAudience =
+                    "apple-prod_8"
+                break
         }
 
-        if (req.params.audience === "scpc-prod") {
+        switch (req.params.audience) {
             // sniper challenge is a different game/audience
-            config.Versions[0].Name = "scpc-prod"
-            config.Versions[0].GAME_VER = "7.3.0"
-            config.Versions[0].SERVER_VER.GlobalAuthentication.RequestedAudience =
-                "scpc-prod"
+            case "scpc-prod":
+                config.Versions[0].Name = "scpc-prod"
+                config.Versions[0].GAME_VER = "7.3.0"
+                config.Versions[0].SERVER_VER.GlobalAuthentication.RequestedAudience =
+                    "scpc-prod"
+                break
+            case "macos-prod":
+                config.Versions[0].Name = "macos-prod"
+                break
+            case "macossteam-prod":
+                config.Versions[0].Name = "macossteam-prod"
+                break
         }
 
         config.Versions[0].ISSUER_ID = req.query.issuer || "*"
-
         config.Versions[0].SERVER_VER.Metrics.MetricsServerHost = `${proto}://${serverhost}`
-
         config.Versions[0].SERVER_VER.Authentication.AuthenticationHost = `${proto}://${serverhost}`
-
         config.Versions[0].SERVER_VER.Configuration.Url = `${proto}://${serverhost}/files/onlineconfig.json`
-
         config.Versions[0].SERVER_VER.Configuration.AgreementUrl = `${proto}://${serverhost}/files/privacypolicy/hm3/privacypolicy.json`
-
         config.Versions[0].SERVER_VER.Resources.ResourcesServicePath = `${proto}://${serverhost}/files`
-
         config.Versions[0].SERVER_VER.GlobalAuthentication.AuthenticationHost = `${proto}://${serverhost}`
 
         res.json(config)
@@ -531,20 +548,24 @@ export async function startServer(options: {
         await setupFileStructure()
 
         if (options.hmr) {
-            void setupHotListener("contracts", () => {
-                log(
-                    LogLevel.INFO,
-                    "Detected a change in contracts! Re-indexing...",
-                )
-                // eslint-disable-next-line promise/catch-or-return
-                controller.index().then(() => {
-                    return log(
+            void setupHotListener(
+                "contracts",
+                () => {
+                    log(
                         LogLevel.INFO,
-                        "Completed re-indexing.",
-                        "contracts",
+                        "Detected a change in contracts! Re-indexing...",
                     )
-                })
-            })
+                    // eslint-disable-next-line promise/catch-or-return
+                    controller.index().then(() => {
+                        return log(
+                            LogLevel.INFO,
+                            "Completed re-indexing.",
+                            "contracts",
+                        )
+                    })
+                },
+                true,
+            )
         }
 
         // once contracts directory is present, we are clear to boot
