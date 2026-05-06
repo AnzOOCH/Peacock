@@ -86,7 +86,7 @@ export class EpicH1Strategy extends EntitlementStrategy {
  */
 export class SteamScpcStrategy extends EntitlementStrategy {
     override get() {
-        return SCPC_ENTITLEMENTS
+        return ALL_ENTITLEMENTS
     }
 }
 
@@ -107,17 +107,6 @@ export class SteamH1Strategy extends EntitlementStrategy {
  * @internal
  */
 export class SteamH2Strategy extends EntitlementStrategy {
-    override get() {
-        return ALL_ENTITLEMENTS
-    }
-}
-
-/**
- * Provider for HITMAN 3 on Steam.
- *
- * @internal
- */
-export class SteamH3Strategy extends EntitlementStrategy {
     override get() {
         return ALL_ENTITLEMENTS
     }
