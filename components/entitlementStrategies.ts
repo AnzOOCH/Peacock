@@ -111,3 +111,14 @@ export class SteamH2Strategy extends EntitlementStrategy {
         return ALL_ENTITLEMENTS
     }
 }
+
+/**
+ * Provider for HITMAN 3 on Steam.
+ *
+ * @internal
+ */
+export class SteamH3Strategy extends EntitlementStrategy {
+    override get() {
+        return ALL_ENTITLEMENTS
+    }
+}
