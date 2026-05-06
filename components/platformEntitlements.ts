@@ -228,7 +228,7 @@ export function getPlatformEntitlements(
     const exts = getUserData(req.jwt.unique_name, req.gameVersion).Extensions
         .entP
 
-    res.json(exts)
+    res.json(ALL_ENTITLEMENTS)
 }
 
 /**
